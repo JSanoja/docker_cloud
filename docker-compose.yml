@@ -22,7 +22,7 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=electro80
     restart: always
 
   wordpress:
@@ -31,10 +31,21 @@ services:
     volumes:
       - ./wordpress:/var/www/html
     environment:
-      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_NAME=clown_db
       - WORDPRESS_TABLE_PREFIX=wp_
       - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_PASSWORD=password
+      - WORDPRESS_DB_PASSWORD=JJ(1YsG3i;|dY:j
     links:
       - mysql
     restart: always
+
+    phpmyadmin:
+      image: corbinu/docker-phpmyadmin
+      links:
+        - wordpress_db:mysql
+      ports:
+        - 8181:80
+      environment:
+        MYSQL_USERNAME: root
+        MYSQL_ROOT_PASSWORD: electro80
+      restart: always
